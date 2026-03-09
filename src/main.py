@@ -1,47 +1,48 @@
 import cv2
 import os
 
-# Ruta para guardar
+# 1. Preparar carpeta
 folder = '../images'
 if not os.path.exists(folder):
     os.makedirs(folder)
 
-# Iniciar cámara
+# 2. Iniciar cámara
 cap = cv2.VideoCapture(0)
 
-print("Camara detectada. Presiona 's' para hacer una foto o 'q' para salir")
+print("Cámara detectada. Presiona 's' para guardar o 'q' para salir.")
 
 while True:
     ret, frame = cap.read()
     if not ret:
         break
 
-    cv2.imshow('Captura de imagen', frame)
+    # --- ANÁLISIS DEL ARRAY 
+    alto, ancho, _ = frame.shape
+    centro_x = ancho // 2
+    centro_y = alto // 2
+    punto_centro = (centro_x, centro_y)
+
+
+    cv2.circle(frame, punto_centro, 50, (0, 255, 0), 3)
+    cv2.circle(frame, punto_centro, 2, (0, 0, 255), -1)
+
+    
+    cv2.imshow('Webcam con Circulo Central', frame)
+
     
     key = cv2.waitKey(1) & 0xFF
-    
+
     if key == ord('s'):
-        # --- ANÁLISIS DEL ARRAY ---
-        dimensiones = frame.shape
-        alto = dimensiones[0]
-        ancho = dimensiones[1]
-        canales = dimensiones[2]
-
-        print("\n" + "="*30)
-        print("DATOS DEL ARRAY DE LA IMAGEN")
-        print("="*30)
-        print(f"Resolución: {ancho} px (ancho) x {alto} px (alto)")
-        print(f"Canales de color: {canales}")
-        print(f"Total de píxeles: {frame.size}")
-        print("="*30 + "\n")
-
-        # Guardar imagen
-        cv2.imwrite(os.path.join(folder, 'foto_resolucion.png'), frame)
-        print("Imagen guardada en la carpeta images/")
-        break
+        ruta_guardado = os.path.join(folder, 'captura_circulo.png')
+        cv2.imwrite(ruta_guardado, frame)
+        print(f"¡Imagen guardada con éxito en {ruta_guardado}!")
+        print(f"Resolución analizada: {ancho}x{alto} px")
+        break 
         
     elif key == ord('q'):
-        break
+        print("Cerrando sin guardar.")
+        break 
 
+# 3. Limpieza final
 cap.release()
 cv2.destroyAllWindows()
