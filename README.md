@@ -2,7 +2,7 @@
 
 ## Configuracion del Entorno
 
-Recomendado el uso de miniConda para gestionar el entorno:
+Recomendado el uso de miniConda para gestionar el entorno
   ## Crear el entorno
   - conda create -n vision python=3.10 -y
   - conda activate vision
