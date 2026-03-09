@@ -1,38 +1,47 @@
 import cv2
 import os
 
+# Ruta para guardar
 folder = '../images'
-
 if not os.path.exists(folder):
     os.makedirs(folder)
 
+# Iniciar cámara
 cap = cv2.VideoCapture(0)
 
-if not cap.isOpened():
-    print("ERROR: No se pudo acceder a la camara")
-else:
-    print("Camara detectada. Presiona 's' para hacer una foto o 'q' para salir")
+print("Camara detectada. Presiona 's' para hacer una foto o 'q' para salir")
 
-    while True:
-        ret, frame = cap.read()
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
 
-        if not ret:
-            print("ERROR: No se pudo recibir el frame")
-            break
+    cv2.imshow('Captura de imagen', frame)
+    
+    key = cv2.waitKey(1) & 0xFF
+    
+    if key == ord('s'):
+        # --- ANÁLISIS DEL ARRAY ---
+        dimensiones = frame.shape
+        alto = dimensiones[0]
+        ancho = dimensiones[1]
+        canales = dimensiones[2]
 
-        cv2.imshow('Previsualizacion - Presiona S para guardar', frame)
-        key = cv2.waitKey(1) & 0xFF
+        print("\n" + "="*30)
+        print("DATOS DEL ARRAY DE LA IMAGEN")
+        print("="*30)
+        print(f"Resolución: {ancho} px (ancho) x {alto} px (alto)")
+        print(f"Canales de color: {canales}")
+        print(f"Total de píxeles: {frame.size}")
+        print("="*30 + "\n")
 
-        if key == ord('s'):
-            img_name = os.path.join(folder, "captura_ejercicio.png")
-            cv2.imwrite(img_name, frame)
-            print(f"Imagen guardada en {img_name}")
+        # Guardar imagen
+        cv2.imwrite(os.path.join(folder, 'foto_resolucion.png'), frame)
+        print("Imagen guardada en la carpeta images/")
+        break
+        
+    elif key == ord('q'):
+        break
 
-        elif key == ord('q'):
-            print("Cerrando sin guardar")
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-
-
+cap.release()
+cv2.destroyAllWindows()
