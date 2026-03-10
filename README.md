@@ -18,13 +18,18 @@ Recomendado el uso de miniConda para gestionar el entorno
 
 ## Flow de la Aplicación
 
-  1. Acceso a Hardware: Conexion con la webcam
-  2. Analisis de Arrays(Numpy): Obtener la resolucion y canales de color analizando la forma de la imagen
-  3. Procesamiento en Tiempo Real (versiones previas):
-       - Dibujo de formas geométricas
-       - Rescalado dinámico a 100x100px
-  4. Metricas de Rendimiento: Calculo de FPS y tiempo de refresco
-  5. Modo Rafaga: Captura de 5 fotos con cadencia programable
+  1. Acceso a Hardware: Conexión con la webcam mediante cv2.VideoCapture.
+
+  2. Análisis de Arrays (NumPy): Obtención de resolución y canales de color analizando la forma (shape) de la imagen.
+
+  3. Detección de Movimiento: Uso de la diferencia absoluta entre fotogramas consecutivos (cv2.absdiff) y umbralización binaria.
+
+  4. Segmentación por Color: Filtrado en espacio de color HSV para aislar tonos de piel (color carne).
+
+  5. Lógica Combinada: Intersección mediante operaciones bitwise para detectar movimiento exclusivamente en áreas con presencia de piel.
+
+  6. Métricas de Rendimiento: Cálculo de FPS y tiempo de refresco en tiempo real.
+  
 
 ## Controles del Programa
 
