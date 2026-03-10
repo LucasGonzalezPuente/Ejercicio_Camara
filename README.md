@@ -39,4 +39,4 @@ Al ejecutar python src/main.py se abrira una ventana en vivo con los siguientes 
   - Tecla q: Cierra la aplicacion y libera la camara
 
 
-
+![Demostración del Sistema](images/funcionamiento.png)
