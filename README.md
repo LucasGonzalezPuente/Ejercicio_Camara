@@ -36,7 +36,6 @@ Recomendado el uso de miniConda para gestionar el entorno
 
 Al ejecutar python src/main.py se abrira una ventana en vivo con los siguientes controles:
 
-  - Tecla s: Inicia la rafaga de 5 capturas en tiempo real
   - Tecla q: Cierra la aplicacion y libera la camara
 
 
