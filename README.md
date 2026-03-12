@@ -1,4 +1,5 @@
 # Control de camara con OpenCV
+Este proyecto utiliza Visión Artificial tradicional (OpenCV) para detectar movimiento exclusivamente en áreas que coinciden con el rango de color de la piel humana.
 
 ## Configuracion del Entorno
 
